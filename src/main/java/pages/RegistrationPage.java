@@ -6,15 +6,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
-public class RegistrationPage extends BasePage{
+public class RegistrationPage extends BasePage {
     public RegistrationPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(name="firstName")
+    @FindBy(name = "firstName")
     private WebElement firstNameField;
 
-    @FindBy(name="lastName")
+    @FindBy(name = "lastName")
     private WebElement lastNameField;
 
     @FindBy(name = "phone")
@@ -35,7 +35,7 @@ public class RegistrationPage extends BasePage{
     @FindBy(name = "postalCode")
     WebElement postalCodeField;
 
-    @FindBy(name = "country")
+    @FindBy(css = "select[name='country']")
     WebElement countryDropdown;
 
     @FindBy(name = "email")
@@ -49,6 +49,10 @@ public class RegistrationPage extends BasePage{
 
     @FindBy(name = "submit")
     WebElement submitButton;
+
+    @FindBy(xpath = "//b[contains(text(), ' Note: Your user name is')]")
+    private WebElement usernameText;
+
 
 
     public void enterFirstName(String firstName) {
@@ -107,4 +111,10 @@ public class RegistrationPage extends BasePage{
         return driver.findElement(By.tagName("body")).getText();
     }
 
+    public String getNameFromConfirmation() {
+        String nameSubstring = usernameText.getText().split("is")[1];
+        return nameSubstring.substring(0, nameSubstring.length() - 1).trim();
+    }
 }
+
+
